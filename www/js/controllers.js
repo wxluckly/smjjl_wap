@@ -7,6 +7,8 @@ angular.module('starter.controllers', ['ngResource'])
     alert('信息获取失败');
   });
 
+  $scope.moreDataCanBeLoaded = true;
+
   $scope.doRefresh = function() {
     if($scope.items){
       var newest_created_at = $scope.items[0].created_at
@@ -18,7 +20,7 @@ angular.module('starter.controllers', ['ngResource'])
         });
         $scope.$broadcast("scroll.refreshComplete");
       }).error(function(){
-        alert('信息获取失败');
+        alert('doRefresh失败');
       });
     }else{
       $scope.$broadcast("scroll.refreshComplete");
@@ -35,8 +37,11 @@ angular.module('starter.controllers', ['ngResource'])
           }
         });
         $scope.$broadcast("scroll.infiniteScrollComplete");
+        if(data.bargains.length == 0){
+          $scope.moreDataCanBeLoaded = false;
+        }
       }).error(function(){
-        alert('信息获取失败');
+        alert('loadMore失败');
       });
     }else{
       $scope.$broadcast("scroll.infiniteScrollComplete");
@@ -45,4 +50,11 @@ angular.module('starter.controllers', ['ngResource'])
 
 }])
 
-.controller('BargainCtrl', function($scope) {})
+.controller('BargainCtrl', ['$scope', '$http', function($scope, $http) {
+  $http.get("http://smjjl.dev/wap_api/bargains/rank").success(function(data){
+    $scope.items = data.bargains;
+  }).error(function(){
+    alert('信息获取失败');
+  });
+
+}])

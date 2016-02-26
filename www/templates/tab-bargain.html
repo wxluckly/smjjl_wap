@@ -1,9 +1,11 @@
 <ion-view view-title="降价排行">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <a class="item item-thumbnail-left" collection-repeat="item in items" href="#">
+        <img src="{{item.product_img}}">
+        <h2>{{item.product_name}}</h2>
+        <p>{{item.created_at}}</p>
+      </a>
     </ion-list>
   </ion-content>
 </ion-view>
