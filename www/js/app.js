@@ -50,12 +50,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('tab.welcome-product-detail', {
+    url: '/welcome/products/:productId',
+    views: {
+      'tab-welcome': {
+        templateUrl: 'templates/product-detail.html',
+        controller: 'ProductCtrl'
+      }
+    }
+  })
+
   .state('tab.bargain', {
     url: '/bargain',
     views: {
       'tab-bargain': {
         templateUrl: 'templates/tab-bargain.html',
         controller: 'BargainCtrl'
+      }
+    }
+  })
+
+  .state('tab.bargain-product-detail', {
+    url: '/bargain/products/:productId',
+    views: {
+      'tab-bargain': {
+        templateUrl: 'templates/product-detail.html',
+        controller: 'ProductCtrl'
       }
     }
   });

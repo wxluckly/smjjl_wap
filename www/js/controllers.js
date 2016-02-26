@@ -58,3 +58,11 @@ angular.module('starter.controllers', ['ngResource'])
   });
 
 }])
+
+.controller('ProductCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+  $http.get("http://smjjl.dev/wap_api/products/show?id=" + $stateParams.productId).success(function(data){
+    $scope.product = data;
+  }).error(function(){
+    alert('信息获取失败');
+  });
+}])
