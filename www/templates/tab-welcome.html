@@ -1,9 +1,12 @@
 <ion-view view-title="首页">
   <ion-content>
+    <ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()" spinner="android"></ion-refresher>
     <ion-list>
-      <ion-item ng-repeat="item in items">
-      Hello, {{item}}!
-      </ion-item>
+      <a class="item item-thumbnail-left" collection-repeat="item in items" href="#">
+        <img src="{{item.product_img}}">
+        <h2>{{item.product_name}}</h2>
+        <p>{{item.created_at}}</p>
+      </a>
     </ion-list>
   </ion-content>
 </ion-view>
