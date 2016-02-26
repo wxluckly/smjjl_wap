@@ -1,6 +1,6 @@
 <ion-view view-title="首页">
   <ion-content>
-    <ion-refresher pulling-text="Pull to refresh..."  on-refresh="doRefresh()" spinner="android"></ion-refresher>
+    <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()" spinner="android"></ion-refresher>
     <ion-list>
       <a class="item item-thumbnail-left" collection-repeat="item in items" href="#">
         <img src="{{item.product_img}}">
@@ -8,5 +8,6 @@
         <p>{{item.created_at}}</p>
       </a>
     </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

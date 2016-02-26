@@ -3,21 +3,44 @@ angular.module('starter.controllers', ['ngResource'])
 .controller('WelcomeCtrl', ['$scope', '$http', function($scope, $http) {
   $http.get("http://smjjl.dev/wap_api/bargains/welcome?per=10").success(function(data){
     $scope.items = data.bargains;
-    console.log(data.bargains)
   }).error(function(){
     alert('信息获取失败');
   });
 
   $scope.doRefresh = function() {
-    $http.get("http://smjjl.dev/wap_api/bargains/welcome?per=10").success(function(data){
-      data.bargains.forEach(function(element, index, array){
-        $scope.items.unshift(element);
+    if($scope.items){
+      var newest_created_at = $scope.items[0].created_at
+      $http.get("http://smjjl.dev/wap_api/bargains/welcome_new?created_at=" + newest_created_at).success(function(data){
+        data.bargains.reverse().forEach(function(element, index, array){
+          if(element.created_at > newest_created_at){
+            $scope.items.unshift(element);
+          }
+        });
+        $scope.$broadcast("scroll.refreshComplete");
+      }).error(function(){
+        alert('信息获取失败');
       });
+    }else{
       $scope.$broadcast("scroll.refreshComplete");
-    }).error(function(){
-      alert('信息获取失败');
-    });
-    
+    }
+  };
+
+  $scope.loadMore = function() {
+    if($scope.items){
+      var oldest_created_at = $scope.items[$scope.items.length - 1].created_at
+      $http.get("http://smjjl.dev/wap_api/bargains/welcome?created_at=" + oldest_created_at + "&per=10").success(function(data){
+        data.bargains.forEach(function(element, index, array){
+          if(element.created_at < oldest_created_at){
+            $scope.items.push(element);
+          }
+        });
+        $scope.$broadcast("scroll.infiniteScrollComplete");
+      }).error(function(){
+        alert('信息获取失败');
+      });
+    }else{
+      $scope.$broadcast("scroll.infiniteScrollComplete");
+    }
   };
 
 }])
