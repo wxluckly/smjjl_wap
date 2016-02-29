@@ -4,8 +4,9 @@ angular.module('starter.controllers', ['ngResource'])
   console.log(Settings.api_domain)
   $http.get(Settings.api_domain + "/wap_api/bargains/welcome?per=10").success(function(data){
     $scope.items = data.bargains;
-  }).error(function(){
+  }).error(function(data, status, headers, config){
     alert(Settings.api_domain + '信息获取失败');
+    alert('error: ' + data + ' ' + status + ' ' + headers + ' ' + JSON.stringify(config))
   });
 
   $scope.moreDataCanBeLoaded = true;
@@ -20,7 +21,8 @@ angular.module('starter.controllers', ['ngResource'])
           }
         });
         $scope.$broadcast("scroll.refreshComplete");
-      }).error(function(){
+      }).error(function(data, status, headers, config){
+        alert('error: ' + data + ' ' + status + ' ' + headers + ' ' + JSON.stringify(config))
         alert('doRefresh失败');
       });
     }else{
