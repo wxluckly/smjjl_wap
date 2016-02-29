@@ -5,7 +5,7 @@ angular.module('starter.controllers', ['ngResource'])
   $http.get(Settings.api_domain + "/wap_api/bargains/welcome?per=10").success(function(data){
     $scope.items = data.bargains;
   }).error(function(){
-    alert('信息获取失败');
+    alert(Settings.api_domain + '信息获取失败');
   });
 
   $scope.moreDataCanBeLoaded = true;
