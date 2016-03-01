@@ -9,8 +9,8 @@
     </author>
     <content src="index.html" />
     <icon src="icon.png" />
-    <!-- <access origin="*" /> -->
-    <access origin="http://smjjl.com" />
+    <access origin="*" />
+    <!-- <access origin="http://smjjl.com" /> -->
 
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

@@ -1,7 +1,6 @@
 angular.module('starter.controllers', ['ngResource'])
 
 .controller('WelcomeCtrl', ['$scope', '$http', 'Settings', function($scope, $http, Settings) {
-  console.log(Settings.api_domain)
   $http.get(Settings.api_domain + "/wap_api/bargains/welcome?per=10").success(function(data){
     $scope.items = data.bargains;
   }).error(function(data, status, headers, config){
